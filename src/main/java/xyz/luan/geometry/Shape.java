@@ -10,6 +10,8 @@ public interface Shape {
 
     public void draw(GraphicsContext g);
 
+    public void fill(GraphicsContext g);
+
     public void translate(Point vector);
 
     public Shape intersection(Shape shape);

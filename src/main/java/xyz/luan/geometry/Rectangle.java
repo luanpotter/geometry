@@ -39,6 +39,11 @@ public class Rectangle extends ShapeBase {
 
     @Override
     public void draw(GraphicsContext g) {
+        g.rect(point.getX(), point.getY(), width, height);
+    }
+
+    @Override
+    public void fill(GraphicsContext g) {
         g.fillRect(point.getX(), point.getY(), width, height);
     }
 
@@ -64,7 +69,7 @@ public class Rectangle extends ShapeBase {
     public boolean contains(Point p) {
         return contains(p.x, p.y);
     }
-    
+
     public boolean contains(double x, double y) {
         return x >= this.point.x && x <= this.point.x + this.width && y >= this.point.y && y <= this.point.y + this.height;
     }

@@ -14,6 +14,10 @@ public class EmptyShape extends ShapeBase {
     }
 
     @Override
+    public void fill(GraphicsContext g) {
+    }
+
+    @Override
     public void translate(Point vector) {
     }
 

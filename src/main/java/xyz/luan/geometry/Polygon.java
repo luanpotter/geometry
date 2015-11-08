@@ -65,6 +65,13 @@ public class Polygon extends ShapeBase {
     public void draw(GraphicsContext g) {
         double[] xs = points.stream().mapToDouble(p -> p.getX()).toArray();
         double[] ys = points.stream().mapToDouble(p -> p.getY()).toArray();
+        g.strokePolygon(xs, ys, points.size());
+    }
+
+    @Override
+    public void fill(GraphicsContext g) {
+        double[] xs = points.stream().mapToDouble(p -> p.getX()).toArray();
+        double[] ys = points.stream().mapToDouble(p -> p.getY()).toArray();
         g.fillPolygon(xs, ys, points.size());
     }
 

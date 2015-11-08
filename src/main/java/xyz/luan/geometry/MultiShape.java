@@ -52,6 +52,11 @@ public class MultiShape extends ShapeBase {
     }
 
     @Override
+    public void fill(GraphicsContext g) {
+        nonOverlappingShapes.forEach(s -> s.fill(g));
+    }
+
+    @Override
     public void translate(Point vector) {
         nonOverlappingShapes.forEach(s -> s.translate(vector));
     }
@@ -60,10 +65,8 @@ public class MultiShape extends ShapeBase {
     public Rectangle getBounds() {
         double minx = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getX()).min().getAsDouble();
         double miny = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getY()).min().getAsDouble();
-        double maxx = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getX() + s.getBounds().getWidth())
-                .max().getAsDouble();
-        double maxy = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getY() + s.getBounds().getHeight())
-                .max().getAsDouble();
+        double maxx = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getX() + s.getBounds().getWidth()).max().getAsDouble();
+        double maxy = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getY() + s.getBounds().getHeight()).max().getAsDouble();
 
         return new Rectangle(minx, maxx, miny, maxy);
     }
