@@ -46,16 +46,24 @@ public class Point {
         return copy;
     }
 
-    public void rotate(Point center, double angle) {
-        translate(center.scaleTo(-1));
-
+    public void rotate(double angle) {
         double nx = x * Math.cos(angle) - y * Math.sin(angle);
         double ny = x * Math.sin(angle) + y * Math.cos(angle);
 
         this.x = nx;
         this.y = ny;
+    }
 
+    public void rotate(Point center, double angle) {
+        translate(center.scaleTo(-1));
+        rotate(angle);
         translate(center);
+    }
+
+    public Point rotateTo(double angle) {
+        Point copy = new Point(this);
+        copy.rotate(angle);
+        return copy;
     }
 
     public Point rotateTo(Point center, double angle) {
@@ -66,5 +74,9 @@ public class Point {
 
     public double angle(Point other) {
         return Math.atan2(other.y, other.x) - Math.atan2(y, x);
+    }
+
+    public double magnitue() {
+        return Math.sqrt(x * x + y * y);
     }
 }
