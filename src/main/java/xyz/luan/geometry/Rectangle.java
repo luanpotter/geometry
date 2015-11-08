@@ -60,4 +60,12 @@ public class Rectangle extends ShapeBase {
     public Point getCenter() {
         return point.translateTo(new Point(width / 2, height / 2));
     }
+
+    public boolean contains(Point p) {
+        return contains(p.x, p.y);
+    }
+    
+    public boolean contains(double x, double y) {
+        return x >= this.point.x && x <= this.point.x + this.width && y >= this.point.y && y <= this.point.y + this.height;
+    }
 }
