@@ -21,13 +21,6 @@ class PointOperations {
     }
 
     private static double distanceFromLineSqrd(Point pt, Point ln1, Point ln2) {
-        // The equation of a line in general form (Ax + By + C = 0)
-        // given 2 points (x¹,y¹) & (x²,y²) is ...
-        // (y¹ - y²)x + (x² - x¹)y + (y² - y¹)x¹ - (x² - x¹)y¹ = 0
-        // A = (y¹ - y²); B = (x² - x¹); C = (y² - y¹)x¹ - (x² - x¹)y¹
-        // perpendicular distance of point (x³,y³) = (Ax³ + By³ + C)/Sqrt(A² +
-        // B²)
-        // see http://en.wikipedia.org/wiki/Perpendicular_distance
         final double A = ln1.y - ln2.y;
         final double B = ln2.x - ln1.x;
         double C = A * ln1.x + B * ln1.y;
