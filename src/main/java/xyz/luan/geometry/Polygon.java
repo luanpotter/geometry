@@ -46,6 +46,11 @@ public class Polygon extends ShapeBase {
     }
 
     private Shape op(Polygon that, OpType type) {
+        if (type == OpType.INTERSECTION) {
+            if (!getBounds().overlaps(that.getBounds())) {
+                return new EmptyShape();
+            }
+        }
         return PolygonClipperHelper.clip(this, that, type);
     }
 

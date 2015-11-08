@@ -62,6 +62,10 @@ public class Rectangle extends ShapeBase {
         return toPolygon().op(shape, type);
     }
 
+    boolean overlaps(Rectangle r) {
+        return getX() < r.getX() + r.width && getX() + width > r.getX() && getY() < r.getY() + r.height && getY() + height > r.getY();
+    }
+
     public Point getCenter() {
         return point.translateTo(new Point(width / 2, height / 2));
     }
