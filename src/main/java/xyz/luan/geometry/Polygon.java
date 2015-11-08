@@ -14,8 +14,12 @@ public class Polygon extends ShapeBase {
 
     private List<Point> points;
 
+    public Polygon(List<Point> points) {
+        this.points = points;
+    }
+
     public Polygon(Point... points) {
-        this.points = Arrays.asList(points);
+        this(Arrays.asList(points));
     }
 
     public Rectangle getBounds() {
@@ -62,6 +66,10 @@ public class Polygon extends ShapeBase {
         double[] xs = points.stream().mapToDouble(p -> p.getX()).toArray();
         double[] ys = points.stream().mapToDouble(p -> p.getY()).toArray();
         g.fillPolygon(xs, ys, points.size());
+    }
+
+    public Point center() {
+        return getBounds().getCenter();
     }
 
     @Override

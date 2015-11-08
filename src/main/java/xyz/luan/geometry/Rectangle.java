@@ -56,4 +56,8 @@ public class Rectangle extends ShapeBase {
     public Shape op(Shape shape, OpType type) {
         return toPolygon().op(shape, type);
     }
+
+    public Point getCenter() {
+        return point.translateTo(new Point(width / 2, height / 2));
+    }
 }

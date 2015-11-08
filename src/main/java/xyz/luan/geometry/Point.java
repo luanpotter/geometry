@@ -24,8 +24,47 @@ public class Point {
         this.y = p.y;
     }
 
+    public void scale(double m) {
+        this.x *= m;
+        this.y *= m;
+    }
+
+    public Point scaleTo(double m) {
+        Point copy = new Point(this);
+        copy.scale(m);
+        return copy;
+    }
+
     public void translate(Point vector) {
         this.x += vector.x;
         this.y += vector.y;
+    }
+
+    public Point translateTo(Point vector) {
+        Point copy = new Point(this);
+        copy.translate(vector);
+        return copy;
+    }
+
+    public void rotate(Point center, double angle) {
+        translate(center.scaleTo(-1));
+
+        double nx = x * Math.cos(angle) - y * Math.sin(angle);
+        double ny = x * Math.sin(angle) + y * Math.cos(angle);
+
+        this.x = nx;
+        this.y = ny;
+
+        translate(center);
+    }
+
+    public Point rotateTo(Point center, double angle) {
+        Point copy = new Point(this);
+        copy.rotate(center, angle);
+        return copy;
+    }
+
+    public double angle(Point other) {
+        return Math.atan2(other.y, other.x) - Math.atan2(y, x);
     }
 }
