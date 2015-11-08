@@ -1,4 +1,4 @@
-package de.lighti.clipper;
+package xyz.luan.geometry.de.lighti.clipper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,10 +6,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
-import de.lighti.clipper.Path.Join;
-import de.lighti.clipper.Path.OutRec;
 import xyz.luan.geometry.OpType;
 import xyz.luan.geometry.Point;
+import xyz.luan.geometry.de.lighti.clipper.Path.Join;
+import xyz.luan.geometry.de.lighti.clipper.Path.OutRec;
 
 class DefaultClipper extends ClipperBase {
     private class IntersectNode {

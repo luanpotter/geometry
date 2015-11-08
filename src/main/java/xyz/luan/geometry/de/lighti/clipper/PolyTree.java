@@ -1,4 +1,4 @@
-package de.lighti.clipper;
+package xyz.luan.geometry.de.lighti.clipper;
 
 import java.util.ArrayList;
 import java.util.List;

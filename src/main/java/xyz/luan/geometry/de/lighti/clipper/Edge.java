@@ -1,12 +1,12 @@
-package de.lighti.clipper;
+package xyz.luan.geometry.de.lighti.clipper;
 
 import java.util.logging.Logger;
 
-import de.lighti.clipper.Clipper.Direction;
-import de.lighti.clipper.Clipper.PolyFillType;
-import de.lighti.clipper.Clipper.PolyType;
 import xyz.luan.geometry.OpType;
 import xyz.luan.geometry.Point;
+import xyz.luan.geometry.de.lighti.clipper.Clipper.Direction;
+import xyz.luan.geometry.de.lighti.clipper.Clipper.PolyFillType;
+import xyz.luan.geometry.de.lighti.clipper.Clipper.PolyType;
 
 class Edge {
     static enum Side {

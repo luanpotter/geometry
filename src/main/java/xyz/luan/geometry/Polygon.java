@@ -3,7 +3,7 @@ package xyz.luan.geometry;
 import java.util.Arrays;
 import java.util.List;
 
-import de.lighti.clipper.PolygonClipperHelper;
+import xyz.luan.geometry.de.lighti.clipper.PolygonClipperHelper;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

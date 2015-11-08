@@ -1,12 +1,12 @@
-package de.lighti.clipper;
+package xyz.luan.geometry.de.lighti.clipper;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.lighti.clipper.Clipper.EndType;
-import de.lighti.clipper.Clipper.JoinType;
 import xyz.luan.geometry.Point;
+import xyz.luan.geometry.de.lighti.clipper.Clipper.EndType;
+import xyz.luan.geometry.de.lighti.clipper.Clipper.JoinType;
 
 class PolyNode {
     enum NodeType {

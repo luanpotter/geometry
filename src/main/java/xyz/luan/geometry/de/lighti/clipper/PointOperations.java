@@ -1,4 +1,4 @@
-package de.lighti.clipper;
+package xyz.luan.geometry.de.lighti.clipper;
 
 import lombok.experimental.UtilityClass;
 import xyz.luan.geometry.Point;
