@@ -4,7 +4,7 @@
 
 	<groupId>xyz.luan.geometry</groupId>
 	<artifactId>geometry</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<prerequisites>
@@ -12,6 +12,7 @@
 	</prerequisites>
 
 	<name>geometry</name>
+	<description>Simple geometry package for Java, implementing set operations and area calculation for Polygons.</description>
 	<url>http://maven.apache.org</url>
 
 	<properties>
