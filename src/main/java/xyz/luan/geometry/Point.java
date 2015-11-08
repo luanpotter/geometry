@@ -76,7 +76,7 @@ public class Point {
         return Math.atan2(other.y, other.x) - Math.atan2(y, x);
     }
 
-    public double magnitue() {
+    public double magnitude() {
         return Math.sqrt(x * x + y * y);
     }
 }
