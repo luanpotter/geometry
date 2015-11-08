@@ -3,7 +3,7 @@ package de.lighti.clipper;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import xyz.ll.geometry.Point;
+import xyz.luan.geometry.Point;
 
 /**
  * A pure convenience class to avoid writing List<IntPoint> everywhere.

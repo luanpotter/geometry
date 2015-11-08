@@ -1,7 +1,7 @@
 package de.lighti.clipper;
 
 import lombok.experimental.UtilityClass;
-import xyz.ll.geometry.Point;
+import xyz.luan.geometry.Point;
 
 @UtilityClass
 class PointOperations {

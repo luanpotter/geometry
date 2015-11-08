@@ -1,6 +1,6 @@
 package de.lighti.clipper;
 
-import xyz.ll.geometry.OpType;
+import xyz.luan.geometry.OpType;
 
 interface Clipper {
     enum Direction {

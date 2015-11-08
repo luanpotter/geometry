@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import xyz.ll.geometry.Point;
+import xyz.luan.geometry.Point;
 
 abstract class ClipperBase implements Clipper {
     protected class LocalMinima {

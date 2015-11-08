@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import de.lighti.clipper.Path.Join;
 import de.lighti.clipper.Path.OutRec;
-import xyz.ll.geometry.OpType;
-import xyz.ll.geometry.Point;
+import xyz.luan.geometry.OpType;
+import xyz.luan.geometry.Point;
 
 class DefaultClipper extends ClipperBase {
     private class IntersectNode {

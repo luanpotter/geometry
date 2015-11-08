@@ -1,4 +1,4 @@
-package xyz.ll.geometry;
+package xyz.luan.geometry;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

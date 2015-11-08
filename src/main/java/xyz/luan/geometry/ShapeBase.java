@@ -1,4 +1,4 @@
-package xyz.ll.geometry;
+package xyz.luan.geometry;
 
 public abstract class ShapeBase implements Shape {
 

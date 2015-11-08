@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 import de.lighti.clipper.Clipper.Direction;
 import de.lighti.clipper.Clipper.PolyFillType;
 import de.lighti.clipper.Clipper.PolyType;
-import xyz.ll.geometry.OpType;
-import xyz.ll.geometry.Point;
+import xyz.luan.geometry.OpType;
+import xyz.luan.geometry.Point;
 
 class Edge {
     static enum Side {
