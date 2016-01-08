@@ -79,4 +79,24 @@ public class Point {
     public double magnitude() {
         return Math.sqrt(x * x + y * y);
     }
+
+    public Point vectorTo(Point p) {
+        return p.translateTo(this.scaleTo(-1));
+    }
+
+    public Point normalize() {
+        double mag = this.magnitude();
+        return this.scaleTo(1 / mag);
+    }
+
+    public Point normal() {
+        double mag = this.magnitude();
+        double y = Math.sqrt(mag * Math.pow(this.x / this.y, 2) - 1);
+        double x = Math.sqrt(mag - Math.pow(y, 2));
+        return new Point(x, y);
+    }
+
+    public double getAngularCoefficient() {
+        return this.y / this.x;
+    }
 }
