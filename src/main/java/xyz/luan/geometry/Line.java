@@ -1,7 +1,15 @@
 package xyz.luan.geometry;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class Line {
 
+    /**
+     * This is a unique way to represent a Line. The direction is normalized and
+     * the origin is either y-intersection if any or x-intersection. With this
+     * design, checking for equality is trivial.
+     */
     private Point direction, origin;
 
     private Line(Point direction, Point origin) {
@@ -10,7 +18,22 @@ public class Line {
     }
 
     public static Line fromDirection(Point direction, Point origin) {
-        return new Line(direction.normalize(), origin);
+        Line nonNormalLine = new Line(direction.normalizeTo(), origin);
+        Point newOrigin;
+        try {
+            newOrigin = yAxis().intersection(nonNormalLine);
+        } catch (ParallelLinesException ex) {
+            newOrigin = xAxis().intersection(nonNormalLine);
+        }
+        return new Line(nonNormalLine.direction, newOrigin);
+    }
+
+    public static Line yAxis() {
+        return new Line(new Point(0, 1), new Point());
+    }
+
+    public static Line xAxis() {
+        return new Line(new Point(1, 0), new Point());
     }
 
     public static Line fromPoints(Point p1, Point p2) {
@@ -43,5 +66,13 @@ public class Line {
 
     public double getAngularCoefficient() {
         return direction.getAngularCoefficient();
+    }
+
+    public Point intersection(Line l) {
+        if (this.direction.equals(l.getDirection())) {
+            throw new ParallelLinesException();
+        }
+        double t = l.origin.minusTo(this.origin).crossTo(l.direction) / this.direction.crossTo(l.direction);
+        return this.origin.plusTo(this.direction.scaleTo(t));
     }
 }

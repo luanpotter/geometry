@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Point {
+
+    public static final double E = Math.pow(10, -8);
+
     public double x, y;
 
     public Point(Point p) {
@@ -84,7 +87,7 @@ public class Point {
         return p.translateTo(this.scaleTo(-1));
     }
 
-    public Point normalize() {
+    public Point normalizeTo() {
         double mag = this.magnitude();
         return this.scaleTo(1 / mag);
     }
@@ -98,5 +101,46 @@ public class Point {
 
     public double getAngularCoefficient() {
         return this.y / this.x;
+    }
+
+    public double crossTo(Point p) {
+        return this.x * p.y - this.y * p.x;
+    }
+
+    public Point plusTo(Point p) {
+        return translateTo(p);
+    }
+
+    public Point minusTo(Point p) {
+        return translateTo(p.scaleTo(-1));
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        final long temp1 = Double.doubleToLongBits(this.x);
+        final long temp2 = Double.doubleToLongBits(this.y);
+        result = (result * PRIME) + (int) (temp1 ^ (temp1 >>> 32));
+        result = (result * PRIME) + (int) (temp2 ^ (temp2 >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Point)) {
+            return false;
+        }
+        Point other = (Point) o;
+        if (Math.abs(this.x - other.x) > E) {
+            return false;
+        }
+        if (Math.abs(this.y - other.y) > E) {
+            return false;
+        }
+        return true;
     }
 }
