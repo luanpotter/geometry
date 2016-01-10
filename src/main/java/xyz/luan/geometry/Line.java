@@ -75,4 +75,9 @@ public class Line {
         double t = l.origin.minusTo(this.origin).crossTo(l.direction) / this.direction.crossTo(l.direction);
         return this.origin.plusTo(this.direction.scaleTo(t));
     }
+
+    @Override
+    public String toString() {
+        return "{ dir: " + direction + "; orig: " + origin + "}";
+    }
 }

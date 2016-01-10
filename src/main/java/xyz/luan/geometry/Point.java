@@ -89,7 +89,11 @@ public class Point {
 
     public Point normalizeTo() {
         double mag = this.magnitude();
-        return this.scaleTo(1 / mag);
+        if (mag == 0) {
+            return new Point(this);
+        }
+        double signal = this.x == 0 ? (this.y < 0 ? -1 : +1) : (this.x < 0 ? -1 : +1);
+        return this.scaleTo(signal / mag);
     }
 
     public Point normal() {

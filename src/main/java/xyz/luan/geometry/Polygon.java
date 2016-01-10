@@ -1,12 +1,15 @@
 package xyz.luan.geometry;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import xyz.luan.geometry.de.lighti.clipper.PolygonClipperHelper;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import xyz.luan.geometry.de.lighti.clipper.PolygonClipperHelper;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -87,5 +90,26 @@ public class Polygon extends ShapeBase {
     @Override
     public void translate(Point vector) {
         points.forEach(p -> p.translate(vector));
+    }
+
+    public List<Point> intersections(Line line) {
+        Set<Point> intersections = new HashSet<>();
+        for (Line side : sides()) {
+            try {
+                intersections.add(side.intersection(line));
+            } catch (ParallelLinesException ex) {
+                // ignore
+            }
+        }
+        return new ArrayList<>(intersections);
+    }
+
+    public List<Line> sides() {
+        List<Line> sides = new ArrayList<>();
+        for (int i = 0; i < points.size(); i++) {
+            int next = (i + 1) % points.size();
+            sides.add(Line.fromPoints(points.get(i), points.get(next)));
+        }
+        return sides;
     }
 }
