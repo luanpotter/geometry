@@ -76,6 +76,10 @@ public class Line {
         return this.origin.plusTo(this.direction.scaleTo(t));
     }
 
+    public boolean contains(Point p) {
+        return this.origin.minusTo(p).normal().equals(this.direction, Math.pow(10, -2));
+    }
+
     @Override
     public String toString() {
         return "{ dir: " + direction + "; orig: " + origin + "}";

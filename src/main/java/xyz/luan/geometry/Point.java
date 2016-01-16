@@ -138,13 +138,20 @@ public class Point {
         if (!(o instanceof Point)) {
             return false;
         }
-        Point other = (Point) o;
-        if (Math.abs(this.x - other.x) > E) {
+        return equals((Point) o, E);
+    }
+
+    public boolean equals(Point p, double e) {
+        if (Math.abs(this.x - p.x) > e) {
             return false;
         }
-        if (Math.abs(this.y - other.y) > E) {
+        if (Math.abs(this.y - p.y) > e) {
             return false;
         }
         return true;
+    }
+
+    public double dist(Point p) {
+        return this.minusTo(p).magnitude();
     }
 }

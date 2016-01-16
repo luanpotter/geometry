@@ -20,6 +20,8 @@ public interface Shape {
 
     public List<Point> intersections(Line line);
 
+    public List<Line> sides();
+
     public Shape diff(Shape shape);
 
     public Shape xor(Shape shape);

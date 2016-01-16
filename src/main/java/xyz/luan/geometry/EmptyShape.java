@@ -43,4 +43,9 @@ public class EmptyShape extends ShapeBase {
     public List<Point> intersections(Line line) {
         return Collections.emptyList();
     }
+
+    @Override
+    public List<Line> sides() {
+        return Collections.emptyList();
+    }
 }

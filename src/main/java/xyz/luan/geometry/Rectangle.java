@@ -87,4 +87,9 @@ public class Rectangle extends ShapeBase {
     public List<Point> intersections(Line line) {
         return toPolygon().intersections(line);
     }
+
+    @Override
+    public List<Line> sides() {
+        return toPolygon().sides();
+    }
 }

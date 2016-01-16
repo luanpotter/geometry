@@ -1,6 +1,7 @@
 package xyz.luan.geometry;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -96,10 +97,22 @@ public class MultiShape extends ShapeBase {
 
     @Override
     public List<Point> intersections(Line line) {
-        List<Point> emptyList = Collections.emptyList();
-        return nonOverlappingShapes.stream().map(s -> s.intersections(line)).reduce(emptyList, (list, current) -> {
-            list.addAll(current);
+        return nonOverlappingShapes.stream().map(s -> s.intersections(line)).reduce(new ArrayList<>(), (list, curr) -> {
+            list.addAll(curr);
             return list;
         });
+    }
+
+    @Override
+    public List<Line> sides() {
+        List<Line> sides = nonOverlappingShapes.stream().map(s -> s.sides()).reduce(new ArrayList<>(), (list, curr) -> {
+            list.addAll(curr);
+            return list;
+        });
+        return uniq(sides);
+    }
+
+    private <T> List<T> uniq(List<T> sides) {
+        return new ArrayList<>(new HashSet<>(sides));
     }
 }
