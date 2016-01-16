@@ -2,11 +2,8 @@ package xyz.luan.geometry.de.lighti.clipper;
 
 import java.util.ArrayList;
 
-/**
- * A pure convenience class to avoid writing List<Path> everywhere.
- *
+/*
  * @author Tobias Mahlmann
- *
  */
 class Paths extends ArrayList<Path> {
 

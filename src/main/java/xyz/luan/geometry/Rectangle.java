@@ -1,5 +1,7 @@
 package xyz.luan.geometry;
 
+import java.util.List;
+
 import javafx.scene.canvas.GraphicsContext;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -63,7 +65,8 @@ public class Rectangle extends ShapeBase {
     }
 
     boolean overlaps(Rectangle r) {
-        return getX() < r.getX() + r.width && getX() + width > r.getX() && getY() < r.getY() + r.height && getY() + height > r.getY();
+        return getX() < r.getX() + r.width && getX() + width > r.getX() && getY() < r.getY() + r.height
+                && getY() + height > r.getY();
     }
 
     public Point getCenter() {
@@ -75,6 +78,13 @@ public class Rectangle extends ShapeBase {
     }
 
     public boolean contains(double x, double y) {
-        return x >= this.point.x && x <= this.point.x + this.width && y >= this.point.y && y <= this.point.y + this.height;
+        double px = this.point.x;
+        double py = this.point.y;
+        return x >= px && x <= px + this.width && y >= py && y <= py + this.height;
+    }
+
+    @Override
+    public List<Point> intersections(Line line) {
+        return toPolygon().intersections(line);
     }
 }

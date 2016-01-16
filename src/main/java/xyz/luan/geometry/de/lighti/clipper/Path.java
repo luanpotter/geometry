@@ -5,11 +5,8 @@ import java.util.Collections;
 
 import xyz.luan.geometry.Point;
 
-/**
- * A pure convenience class to avoid writing List<IntPoint> everywhere.
- *
+/*
  * @author Tobias Mahlmann
- *
  */
 class Path extends ArrayList<Point> {
     static class Join {

@@ -1,5 +1,7 @@
 package xyz.luan.geometry;
 
+import java.util.List;
+
 import javafx.scene.canvas.GraphicsContext;
 
 public interface Shape {
@@ -15,6 +17,8 @@ public interface Shape {
     public void translate(Point vector);
 
     public Shape intersection(Shape shape);
+
+    public List<Point> intersections(Line line);
 
     public Shape diff(Shape shape);
 

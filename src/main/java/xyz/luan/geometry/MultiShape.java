@@ -1,5 +1,6 @@
 package xyz.luan.geometry;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,8 +66,10 @@ public class MultiShape extends ShapeBase {
     public Rectangle getBounds() {
         double minx = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getX()).min().getAsDouble();
         double miny = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getY()).min().getAsDouble();
-        double maxx = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getX() + s.getBounds().getWidth()).max().getAsDouble();
-        double maxy = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getY() + s.getBounds().getHeight()).max().getAsDouble();
+        double maxx = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getX() + s.getBounds().getWidth())
+                .max().getAsDouble();
+        double maxy = nonOverlappingShapes.stream().mapToDouble(s -> s.getBounds().getY() + s.getBounds().getHeight())
+                .max().getAsDouble();
 
         return new Rectangle(minx, maxx, miny, maxy);
     }
@@ -89,5 +92,14 @@ public class MultiShape extends ShapeBase {
         default:
             throw new RuntimeException("Unknown OpType");
         }
+    }
+
+    @Override
+    public List<Point> intersections(Line line) {
+        List<Point> emptyList = Collections.emptyList();
+        return nonOverlappingShapes.stream().map(s -> s.intersections(line)).reduce(emptyList, (list, current) -> {
+            list.addAll(current);
+            return list;
+        });
     }
 }

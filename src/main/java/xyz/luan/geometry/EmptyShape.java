@@ -1,5 +1,8 @@
 package xyz.luan.geometry;
 
+import java.util.Collections;
+import java.util.List;
+
 import javafx.scene.canvas.GraphicsContext;
 
 public class EmptyShape extends ShapeBase {
@@ -34,5 +37,10 @@ public class EmptyShape extends ShapeBase {
             return this;
         }
         throw new RuntimeException("Unknown operation");
+    }
+
+    @Override
+    public List<Point> intersections(Line line) {
+        return Collections.emptyList();
     }
 }
