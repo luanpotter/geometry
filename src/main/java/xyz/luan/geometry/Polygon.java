@@ -26,10 +26,23 @@ public class Polygon extends ShapeBase {
     }
 
     public Rectangle getBounds() {
-        double minx = points.stream().mapToDouble(p -> p.getX()).min().getAsDouble();
-        double miny = points.stream().mapToDouble(p -> p.getY()).min().getAsDouble();
-        double maxx = points.stream().mapToDouble(p -> p.getX()).max().getAsDouble();
-        double maxy = points.stream().mapToDouble(p -> p.getY()).max().getAsDouble();
+        double minx, maxx, miny, maxy;
+        minx = maxx = points.get(0).getX();
+        miny = maxy = points.get(0).getY();
+        for (int i = 1; i < points.size(); i++) {
+            Point p = points.get(i);
+            if (p.getX() > maxx) {
+                maxx = p.getX();
+            } else if (p.getX() < minx) {
+                minx = p.getX();
+            }
+
+            if (p.getY() > maxy) {
+                maxy = p.getY();
+            } else if (p.getY() < miny) {
+                miny = p.getY();
+            }
+        }
 
         return new Rectangle(minx, maxx, miny, maxy);
     }
