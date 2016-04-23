@@ -17,8 +17,16 @@ public class Polygon extends ShapeBase {
 
     private List<Point> points;
 
+    private transient Point center;
+    private transient Rectangle bounds;
+    private transient double area;
+
     public Polygon(List<Point> points) {
         this.points = points;
+
+        this.bounds = this.recalculateBounds();
+	this.center = this.bounds.getCenter();
+        this.area = this.recalculateArea();
     }
 
     public Polygon(Point... points) {
@@ -26,6 +34,10 @@ public class Polygon extends ShapeBase {
     }
 
     public Rectangle getBounds() {
+        return this.bounds;
+    }
+
+    public Rectangle recalculateBounds() {
         double minx, maxx, miny, maxy;
         minx = maxx = points.get(0).getX();
         miny = maxy = points.get(0).getY();
@@ -72,6 +84,10 @@ public class Polygon extends ShapeBase {
 
     @Override
     public double area() {
+        return this.area;
+    }
+
+    public double recalculateArea() {
         double sum = 0;
         int last = points.size() - 1;
         for (int i = 0; i < last; i++) {
@@ -97,12 +113,21 @@ public class Polygon extends ShapeBase {
     }
 
     public Point center() {
-        return getBounds().getCenter();
+        return this.center;
     }
 
     @Override
     public void translate(Point vector) {
         points.forEach(p -> p.translate(vector));
+        bounds.translate(vector);
+        center.translate(vector);
+    }
+
+    public void rotate(double angle) {
+        for (Point p : this.points) {
+            p.rotate(this.center, angle);
+        }
+        this.bounds = this.recalculateBounds();
     }
 
     public List<Point> intersections(Line line) {
