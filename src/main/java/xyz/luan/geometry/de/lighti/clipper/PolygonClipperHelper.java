@@ -17,8 +17,8 @@ public class PolygonClipperHelper {
 
     public Shape clip(Polygon thiz, Polygon that, OpType type) {
         Clipper clip = new DefaultClipper();
-        clip.addPath(toPath(thiz), PolyType.SUBJECT, true);
-        clip.addPath(toPath(that), PolyType.CLIP, true);
+        clip.addPath(thiz.toPath(), PolyType.SUBJECT, true);
+        clip.addPath(that.toPath(), PolyType.CLIP, true);
         Paths paths = new Paths();
         clip.execute(type, paths);
         if (paths.isEmpty()) {
@@ -35,13 +35,8 @@ public class PolygonClipperHelper {
         if (p.isEmpty()) {
             return new EmptyShape();
         }
-        return new Polygon(p.toArray(new Point[p.size()]));
+        return p.getPolygon();
     }
 
-    private Path toPath(Polygon polygon) {
-        Path path = new Path();
-        polygon.getPoints().forEach(p -> path.add(p));
-        return path;
-    }
 
 }

@@ -9,11 +9,19 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor
 public class Rectangle extends ShapeBase {
 
     private Point point;
     private double width, height;
+
+    //caches
+    private transient Polygon polygon;
+
+    public Rectangle(Point point, double width, double height) {
+        this.point = point;
+        this.width = width;
+        this.height = height;
+    }
 
     public Rectangle(double startx, double endx, double starty, double endy) {
         this(new Point(startx, starty), endx - startx, endy - starty);
@@ -28,7 +36,14 @@ public class Rectangle extends ShapeBase {
     }
 
     public Polygon toPolygon() {
-        return new Polygon(this);
+        if (this.polygon == null) {
+            this.recalculatePolygon();
+        }
+        return this.polygon;
+    }
+
+    private void recalculatePolygon() {
+        this.polygon = new Polygon(this);
     }
 
     @Override
@@ -58,7 +73,23 @@ public class Rectangle extends ShapeBase {
 
     @Override
     public Shape op(Shape shape, OpType type) {
+        if (type == OpType.INTERSECTION && shape instanceof Rectangle) {
+            // optmization
+            return intersection((Rectangle) shape);
+        }
         return toPolygon().op(shape, type);
+    }
+
+    private Shape intersection(Rectangle r) {
+        double xi = Math.max(this.point.x, r.point.x);
+        double xf = Math.min(this.point.x + this.width, r.point.x + r.width);
+        double yi = Math.max(this.point.y, r.point.y);
+        double yf = Math.min(this.point.y + this.height, r.point.y + r.height);
+
+	if (xi >= xf || yi >= yf) {
+            return new EmptyShape();
+        }
+        return new Rectangle(new Point(xi, yi), xf - xi, yf - yi);
     }
 
     boolean overlaps(Rectangle r) {

@@ -78,10 +78,4 @@ class Paths extends ArrayList<Path> {
         return result;
     }
 
-    public void reversePaths() {
-        for (final Path poly : this) {
-            poly.reverse();
-        }
-    }
-
 }

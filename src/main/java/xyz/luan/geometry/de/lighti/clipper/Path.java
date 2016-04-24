@@ -1,14 +1,71 @@
 package xyz.luan.geometry.de.lighti.clipper;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 
 import xyz.luan.geometry.Point;
+import xyz.luan.geometry.Polygon;
 
 /*
  * @author Tobias Mahlmann
  */
-class Path extends ArrayList<Point> {
+public class Path {
+
+    private Polygon polygon;
+
+    public Path() {
+        this(new Polygon());
+    }
+
+    public Path(Polygon polygon) {
+        this.polygon = polygon;
+    }
+
+    public static class PathBuilder {
+        private List<Point> pts;
+
+	public PathBuilder() {
+            this.pts = new ArrayList<>();
+        }
+
+        public PathBuilder(int size) {
+            this.pts = new ArrayList<>(size);
+        }
+
+        public void add(Point pt) {
+            this.pts.add(pt);
+        }
+
+        public Path toPath() {
+            return new Path(new Polygon(pts));
+        }
+    }
+
+    public Polygon getPolygon() {
+        return this.polygon;
+    }
+
+    public Point get(int i) {
+        return this.polygon.getPoints().get(i);
+    }
+
+    public List<Point> getPoints() {
+        return this.polygon.getPoints();
+    }
+
+    public int size() {
+        return this.polygon.getPoints().size();
+    }
+
+    public boolean isEmpty() {
+        return this.polygon.getPoints().isEmpty();
+    }
+
+    public void invalidate() {
+        this.polygon.invalidate();
+    }
+
     static class Join {
         Path.OutPt outPt1;
         Path.OutPt outPt2;
@@ -240,15 +297,6 @@ class Path extends ArrayList<Point> {
      */
     private static final long serialVersionUID = -7120161578077546673L;
 
-    public Path() {
-        super();
-
-    }
-
-    public Path(int cnt) {
-        super(cnt);
-    }
-
     public double area() {
         final int cnt = size();
         if (cnt < 3) {
@@ -314,13 +362,13 @@ class Path extends ArrayList<Point> {
         if (cnt < 3) {
             cnt = 0;
         }
-        final Path result = new Path(cnt);
+        final PathBuilder result = new PathBuilder(cnt);
         for (int i = 0; i < cnt; ++i) {
             result.add(op.pt);
             op = op.next;
         }
         outPts = null;
-        return result;
+        return result.toPath();
     }
 
     public int isPointInPolygon(Point pt) {
@@ -376,15 +424,11 @@ class Path extends ArrayList<Point> {
         return area() >= 0;
     }
 
-    public void reverse() {
-        Collections.reverse(this);
-    }
-
     public Path TranslatePath(Point delta) {
-        final Path outPath = new Path(size());
+        final PathBuilder outPath = new PathBuilder(size());
         for (int i = 0; i < size(); i++) {
             outPath.add(new Point(get(i).getX() + delta.getX(), get(i).getY() + delta.getY()));
         }
-        return outPath;
+        return outPath.toPath();
     }
 }

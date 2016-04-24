@@ -10,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import xyz.luan.geometry.de.lighti.clipper.PolygonClipperHelper;
+import xyz.luan.geometry.de.lighti.clipper.Path;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -17,14 +18,21 @@ public class Polygon extends ShapeBase {
 
     private List<Point> points;
 
+    // caches
     private transient Point center;
     private transient Rectangle bounds;
+    private transient Path path;
     private transient double area;
 
     public Polygon(List<Point> points) {
         this.points = points;
 
+        this.invalidate();
+    }
+
+    public final void invalidate() {
         this.bounds = this.recalculateBounds();
+        this.path = new Path(this);
 	this.center = this.bounds.getCenter();
         this.area = this.recalculateArea();
     }
@@ -43,12 +51,17 @@ public class Polygon extends ShapeBase {
 
         this.points = Arrays.asList(p, c1, c2, c4);
 	this.bounds = r;
+        this.path = new Path(this);
         this.center = new Point(p.x + w/2, p.y + h/2);
         this.area = w * h;
     }
 
     public Rectangle getBounds() {
         return this.bounds;
+    }
+
+    public Path toPath() {
+        return path;
     }
 
     public Rectangle recalculateBounds() {

@@ -37,7 +37,7 @@ class PolyNode {
     }
 
     public List<Point> getContour() {
-        return polygon;
+        return polygon.getPoints();
     }
 
     public EndType getEndType() {

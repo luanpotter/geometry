@@ -410,32 +410,33 @@ class DefaultClipper extends ClipperBase {
         final Paths result = new Paths(pathCnt);
         if (IsSum) {
             for (int i = 0; i < pathCnt; i++) {
-                final Path p = new Path(polyCnt);
-                for (final Point ip : pattern) {
+                final Path.PathBuilder p = new Path.PathBuilder(polyCnt);
+                for (final Point ip : pattern.getPoints()) {
                     p.add(new Point(path.get(i).getX() + ip.getX(), path.get(i).getY() + ip.getY()));
                 }
-                result.add(p);
+                result.add(p.toPath());
             }
         } else {
             for (int i = 0; i < pathCnt; i++) {
-                final Path p = new Path(polyCnt);
-                for (final Point ip : pattern) {
+                final Path.PathBuilder p = new Path.PathBuilder(polyCnt);
+                for (final Point ip : pattern.getPoints()) {
                     p.add(new Point(path.get(i).getX() - ip.getX(), path.get(i).getY() - ip.getY()));
                 }
-                result.add(p);
+                result.add(p.toPath());
             }
         }
 
         final Paths quads = new Paths((pathCnt + delta) * (polyCnt + 1));
         for (int i = 0; i < pathCnt - 1 + delta; i++) {
             for (int j = 0; j < polyCnt; j++) {
-                final Path quad = new Path(4);
-                quad.add(result.get(i % pathCnt).get(j % polyCnt));
-                quad.add(result.get((i + 1) % pathCnt).get(j % polyCnt));
-                quad.add(result.get((i + 1) % pathCnt).get((j + 1) % polyCnt));
-                quad.add(result.get(i % pathCnt).get((j + 1) % polyCnt));
+                final Path.PathBuilder quadb = new Path.PathBuilder(4);
+                quadb.add(result.get(i % pathCnt).get(j % polyCnt));
+                quadb.add(result.get((i + 1) % pathCnt).get(j % polyCnt));
+                quadb.add(result.get((i + 1) % pathCnt).get((j + 1) % polyCnt));
+                quadb.add(result.get(i % pathCnt).get((j + 1) % polyCnt));
+                final Path quad = quadb.toPath();
                 if (!quad.orientation()) {
-                    Collections.reverse(quad);
+                    Collections.reverse(quad.getPoints());
                 }
                 quads.add(quad);
             }
@@ -884,12 +885,12 @@ class DefaultClipper extends ClipperBase {
             if (cnt < 2) {
                 continue;
             }
-            final Path pg = new Path(cnt);
+            final Path.PathBuilder pg = new Path.PathBuilder(cnt);
             for (int j = 0; j < cnt; j++) {
                 pg.add(new Point(p.getPt()));
                 p = p.prev;
             }
-            polyg.add(pg);
+            polyg.add(pg.toPath());
         }
     }
 
@@ -909,9 +910,10 @@ class DefaultClipper extends ClipperBase {
             outRec.polyNode = pn;
             Path.OutPt op = outRec.getPoints().prev;
             for (int j = 0; j < cnt; j++) {
-                pn.getPolygon().add(op.getPt());
+                pn.getPolygon().getPoints().add(op.getPt());
                 op = op.prev;
             }
+            pn.getPolygon().invalidate();
         }
 
         // fixup PolyNode links etc ...
