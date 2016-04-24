@@ -28,10 +28,7 @@ public class Rectangle extends ShapeBase {
     }
 
     public Polygon toPolygon() {
-        Point c1 = new Point(point, width, 0);
-        Point c2 = new Point(point, width, height);
-        Point c4 = new Point(point, 0, height);
-        return new Polygon(point, c1, c2, c4);
+        return new Polygon(this);
     }
 
     @Override

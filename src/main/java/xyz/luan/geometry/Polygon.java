@@ -33,6 +33,20 @@ public class Polygon extends ShapeBase {
         this(Arrays.asList(points));
     }
 
+    public Polygon(Rectangle r) {
+	Point p = r.getPoint();
+	double w = r.getWidth(), h = r.getHeight();
+
+        Point c1 = new Point(p, w, 0);
+        Point c2 = new Point(p, w, h);
+        Point c4 = new Point(p, 0, h);
+
+        this.points = Arrays.asList(p, c1, c2, c4);
+	this.bounds = r;
+        this.center = new Point(p.x + w/2, p.y + h/2);
+        this.area = w * h;
+    }
+
     public Rectangle getBounds() {
         return this.bounds;
     }
