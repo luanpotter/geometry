@@ -154,4 +154,8 @@ public class Point {
     public double dist(Point p) {
         return this.minusTo(p).magnitude();
     }
+
+    public Point copy() {
+        return new Point(this);
+    }
 }
